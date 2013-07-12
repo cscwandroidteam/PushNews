@@ -1,5 +1,7 @@
 package com.pushnews.app.ui;
 
+import com.pushnews.app.R;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
