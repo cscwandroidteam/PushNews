@@ -9,21 +9,21 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 /**
- * ¶Ô×óÓÒÁ½±ßµÄview½øĞĞ×Ô¶¨ÒåµÄlistvewÉè¼Æ
+ * å¯¹å·¦å³ä¸¤è¾¹çš„viewè¿›è¡Œè‡ªå®šä¹‰çš„listvewè®¾è®¡
  * @author LZB
  * */
 
 public class FixListViewLinearLayout extends LinearLayout {
 
-	/* ×Ô¶¨ÒåÊÖÊÆ ±äÁ¿ */
+	/* è‡ªå®šä¹‰æ‰‹åŠ¿ å˜é‡ */
 	private GestureDetector mGestureDetector;
 	View.OnTouchListener mGestureListener;
-	/* ÅĞ¶ÏÊÇ·ñ¸Ã×óÓÒ»¬¶¯ */
+	/* åˆ¤æ–­æ˜¯å¦è¯¥å·¦å³æ»‘åŠ¨ */
 	private boolean isLock = true;
 
-	/* ÓÃÀ´ÅĞ¶ÏÊÇ²»ÊÇÔÚÖ´ĞĞµ±Ç°touchÊÂ¼ş */
+	/* ç”¨æ¥åˆ¤æ–­æ˜¯ä¸æ˜¯åœ¨æ‰§è¡Œå½“å‰touchäº‹ä»¶ */
 	private boolean te;
-	/*¶¨ÒåÒ»¸ö½Ó¿Ú*/
+	/*å®šä¹‰ä¸€ä¸ªæ¥å£*/
 	private OnScrollListener onScrollListener;
 	
 	public OnScrollListener getOnScrollListener() {
@@ -40,12 +40,12 @@ public class FixListViewLinearLayout extends LinearLayout {
 
 	public FixListViewLinearLayout(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		/* ×Ô¶¨ÒåÊÖÊÆ */
+		/* è‡ªå®šä¹‰æ‰‹åŠ¿ */
 		mGestureDetector = new GestureDetector(new SimpleOnGestureListener() {
 
 			@Override
 			public boolean onDown(MotionEvent e) {
-				/*°´ÏÂÊ±¾Í¿ÉÒÔÒÆ¶¯½çÃæ*/
+				/*æŒ‰ä¸‹æ—¶å°±å¯ä»¥ç§»åŠ¨ç•Œé¢*/
 				isLock = true;
 				return super.onDown(e);
 			}
@@ -56,7 +56,7 @@ public class FixListViewLinearLayout extends LinearLayout {
 				if (!isLock) {
 					onScrollListener.doScroll(distanceX);
 				}
-				// ´¹Ö±´óÓÚË®Æ½
+				// å‚ç›´å¤§äºæ°´å¹³
 				if (Math.abs(distanceY) > Math.abs(distanceX)) {
 					return false;
 				} else {
@@ -68,19 +68,19 @@ public class FixListViewLinearLayout extends LinearLayout {
 
 	// ==================================================================================================
 	/***
-	 * dispatchTouchEvent(MotionEvent ev) ÊÂ¼ş·Ö·¢£¬Ö÷ÒªÊÇ¶Ôµ±Ç°ÊÂ¼şµÄ»ñÈ¡¡£
+	 * dispatchTouchEvent(MotionEvent ev) äº‹ä»¶åˆ†å‘ï¼Œä¸»è¦æ˜¯å¯¹å½“å‰äº‹ä»¶çš„è·å–ã€‚
 	 * 
-	 * onInterceptTouchEvent(MotionEvent ev) ÊÂ¼şÀ¹½Ø´¦Àí£¬Ö÷ÒªÄ¿µÄ²»ÊÇÈÃÕâ¸öÊÂ¼ş¼ÌĞø´«µİÏÂÈ¥£¬À¹½ØÔÚµ±Ç°½çÃæ¡£
-	 * £¨ÒªÃ÷°×»úÖÆ£¬Èç¹û·µ»ØtureµÄ»°£¬ÄÇ¾ÍÊÇ½øĞĞÀ¹½Ø£¬´¦Àí×Ô¼ºµÄontouch. ·µ»ØfalseµÄ»°£¬ÄÇÃ´¾Í»áÏòÏÂ´«µİ...£©
-	 * onTouchEvent(MotionEvent event) ÊÂ¼ş´¦Àí£¬ÔÚÉÏÃæÀ¹½Øºó£¬¾ÍÔÚÕâ¸öº¯ÊıÖĞ´¦Àí¡£
+	 * onInterceptTouchEvent(MotionEvent ev) äº‹ä»¶æ‹¦æˆªå¤„ç†ï¼Œä¸»è¦ç›®çš„ä¸æ˜¯è®©è¿™ä¸ªäº‹ä»¶ç»§ç»­ä¼ é€’ä¸‹å»ï¼Œæ‹¦æˆªåœ¨å½“å‰ç•Œé¢ã€‚
+	 * ï¼ˆè¦æ˜ç™½æœºåˆ¶ï¼Œå¦‚æœè¿”å›tureçš„è¯ï¼Œé‚£å°±æ˜¯è¿›è¡Œæ‹¦æˆªï¼Œå¤„ç†è‡ªå·±çš„ontouch. è¿”å›falseçš„è¯ï¼Œé‚£ä¹ˆå°±ä¼šå‘ä¸‹ä¼ é€’...ï¼‰
+	 * onTouchEvent(MotionEvent event) äº‹ä»¶å¤„ç†ï¼Œåœ¨ä¸Šé¢æ‹¦æˆªåï¼Œå°±åœ¨è¿™ä¸ªå‡½æ•°ä¸­å¤„ç†ã€‚
 	 * 
 	 */
 	@Override
 	public boolean dispatchTouchEvent(MotionEvent ev) {
 
-		te = mGestureDetector.onTouchEvent(ev);// »ñÈ¡ÊÖÊÆ·µ»ØÖµ.
+		te = mGestureDetector.onTouchEvent(ev);// è·å–æ‰‹åŠ¿è¿”å›å€¼.
 		/***
-		 * ËÉ¿ªÊ±¼ÇµÃ´¦ÀíËõ»Ø...
+		 * æ¾å¼€æ—¶è®°å¾—å¤„ç†ç¼©å›...
 		 */
 		if (ev.getAction() == MotionEvent.ACTION_UP) {
 			onScrollListener.doLoosen();
@@ -102,12 +102,12 @@ public class FixListViewLinearLayout extends LinearLayout {
 
 	// ===============================================================================================
 	/**
-	 * ¶¨ÒåÒ»¸ö½Ó¿ÚÓÃÀ´ÊµÏÖ»¬¶¯ºÍ»ØÊÕ
+	 * å®šä¹‰ä¸€ä¸ªæ¥å£ç”¨æ¥å®ç°æ»‘åŠ¨å’Œå›æ”¶
 	 * */
 	public interface OnScrollListener {
-		void doScroll(float distanceX);// »¬¶¯...
+		void doScroll(float distanceX);// æ»‘åŠ¨...
 
-		void doLoosen();// ÊÖÖ¸ËÉ¿ªºóÖ´ĞĞ...
+		void doLoosen();// æ‰‹æŒ‡æ¾å¼€åæ‰§è¡Œ...
 	}
 
 }

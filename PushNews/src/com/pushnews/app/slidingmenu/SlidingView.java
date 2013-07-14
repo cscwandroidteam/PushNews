@@ -5,8 +5,8 @@ import android.util.AttributeSet;
 import android.view.ViewGroup;
 
 /**
- * 自定义一个空白的界面组件
- * 为了左中右三个界面的组合
+ * 鑷畾涔変竴涓┖鐧界殑鐣岄潰缁勪欢
+ * 涓轰簡宸︿腑鍙充笁涓晫闈㈢殑缁勫悎
  * @author LZB
  * */
 public class SlidingView extends ViewGroup {

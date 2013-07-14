@@ -1,7 +1,8 @@
 package com.pushnews.app.ui;
 
-import com.example.slidingmenu.view.SlidingMenu;
-import com.example.slidingmenu.view.SlidingState;
+import com.pushnews.app.R;
+import com.pushnews.app.slidingmenu.SlidingMenu;
+import com.pushnews.app.slidingmenu.SlidingState;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,26 +19,27 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.support.v4.app.NavUtils;
 
 public class MainActivity extends Activity {
-	
+
 	private SlidingMenu slidingMenu;
-	private String lf_title[] = { "¹ãÖİ", "ÓéÀÖ", "ÌåÓı", "Æû³µ", "¿Æ¼¼",
-			"Í·Ìõ", "½ô¼±ĞÂÎÅ", "²Æ¾­", "È¤Í¼", "¹úÄÚ", "¹ú¼Ê", "³£¼ûÎÊÌâ", "ÍË³öµ±Ç°ÕÊºÅ" };
-	private String lr_title[] = { "ÉèÖÃ", "ÏûÏ¢ÍÆËÍ", "ÎÒµÄÊÕ²Ø", "¸Ä±ä×ÖÌå´óĞ¡", "¸Ä±äÁÁ¶È","³£¼ûÎÊÌâ",
-			"ÍË³öµ±Ç°ÕÊºÅ" };
-	private String lc_title[] = { "¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ", "¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ", "¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ", "¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ",
-			"¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ",
-			"¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ","¹ã¶«¹¤Òµ´óÑ§ÖØ´óĞÂÎÅ"};
-	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        /* ÉèÖÃÈ«ÆÁ */
+	private String lf_title[] = { "å¹¿å·", "å¨±ä¹", "ä½“è‚²", "æ±½è½¦", "ç§‘æŠ€", "å¤´æ¡", "ç´§æ€¥æ–°é—»",
+			"è´¢ç»", "è¶£å›¾", "å›½å†…", "å›½é™…", "å¸¸è§é—®é¢˜", "é€€å‡ºå½“å‰å¸å·" };
+	private String lr_title[] = { "è®¾ç½®", "æ¶ˆæ¯æ¨é€", "æˆ‘çš„æ”¶è—", "æ”¹å˜å­—ä½“å¤§å°", "æ”¹å˜äº®åº¦",
+			"å¸¸è§é—®é¢˜", "é€€å‡ºå½“å‰å¸å·" };
+	private String lc_title[] = { "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»",
+			"å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»",
+			"å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»",
+			"å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»", "å¹¿ä¸œå·¥ä¸šå¤§å­¦é‡å¤§æ–°é—»" };
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		/* è®¾ç½®å…¨å± */
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.sliding_menu);
-        slidingMenu = (SlidingMenu) findViewById(R.id.slidingMenu);
-        /**
+		setContentView(R.layout.sliding_menu);
+		slidingMenu = (SlidingMenu) findViewById(R.id.slidingMenu);
+		/**
 		 * getLayoutInflater().inflate(int resource, ViewGroup root);
-		 * Õâ¸öÊÇ¶Ô×Ô¶¨ÒåµÄxml²¼¾ÖÎÄ¼ş½øĞĞ½âÊÍ£¬È»ºó»ñÈ¡ºóandroidÄÜ¹»¶ÔÆä±äÎªÒ»¸ölayout;
+		 * è¿™ä¸ªæ˜¯å¯¹è‡ªå®šä¹‰çš„xmlå¸ƒå±€æ–‡ä»¶è¿›è¡Œè§£é‡Šï¼Œç„¶åè·å–åandroidèƒ½å¤Ÿå¯¹å…¶å˜ä¸ºä¸€ä¸ªlayout;
 		 */
 		ViewGroup leftView = (ViewGroup) getLayoutInflater().inflate(
 				R.layout.sl_left_v, null);
@@ -45,28 +47,28 @@ public class MainActivity extends Activity {
 				R.layout.sl_right_v, null);
 		ViewGroup centerView = (ViewGroup) getLayoutInflater().inflate(
 				R.layout.sl_center_v, null);
-		/* ¶ÔÕâ¸ö×Ô¶¨ÒåµÄcoSlidingMenuÌí¼ÓÖĞ¼ä»­ÃæµÄ×é¼ş */
+		/* å¯¹è¿™ä¸ªè‡ªå®šä¹‰çš„coSlidingMenuæ·»åŠ ä¸­é—´ç”»é¢çš„ç»„ä»¶ */
 		slidingMenu.setCenterView(centerView);
-		/* ÕâÀï»ñÈ¡×Ô¶¨Òå×óÓÒ½çÃæµÄ¿í¶È */
-		/* ÕâÀï»ñÈ¡×Ô¶¨Òå×óÓÒ½çÃæµÄ¿í¶È */
+		/* è¿™é‡Œè·å–è‡ªå®šä¹‰å·¦å³ç•Œé¢çš„å®½åº¦ */
+		/* è¿™é‡Œè·å–è‡ªå®šä¹‰å·¦å³ç•Œé¢çš„å®½åº¦ */
 		int leftWidth = (int) getResources()
 				.getDimension(R.dimen.leftViewWidth);
 		int rightWidth = (int) getResources().getDimension(
 				R.dimen.rightViewWidth);
 		/*
-		 * ¶ÔÕâ¸ö×Ô¶¨ÒåµÄSlidingMenuÌí¼Ó×ó±ßºÍÓÒ±ß»­ÃæµÄ×é¼ş Ö÷ÒªÊÇÈ·¶¨ËûÃÇµÄ¿í¶È
+		 * å¯¹è¿™ä¸ªè‡ªå®šä¹‰çš„SlidingMenuæ·»åŠ å·¦è¾¹å’Œå³è¾¹ç”»é¢çš„ç»„ä»¶ ä¸»è¦æ˜¯ç¡®å®šä»–ä»¬çš„å®½åº¦
 		 */
 		slidingMenu.setLeftView(leftView, leftWidth);
 		slidingMenu.setRightView(rightView, rightWidth);
-		/* ÉèÖÃÓÒ±ßImageViewµÄÏìÓ¦ÊÂ¼ş */
+		/* è®¾ç½®å³è¾¹ImageViewçš„å“åº”äº‹ä»¶ */
 		View ivRight = centerView.findViewById(R.id.ivRight);
 		ivRight.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				/*
-				 * »ñÈ¡µ±Ç°½çÃæµÄ×´Ì¬ ×Ü¹²ÓĞÈıÖÖ:SHOWRIGHT,SHOWCENTER,SHOWLEFT
-				 * Ö÷ÒªÊÇ¸úSHOWCENTERÏà¶Ô±È
+				 * è·å–å½“å‰ç•Œé¢çš„çŠ¶æ€ æ€»å…±æœ‰ä¸‰ç§:SHOWRIGHT,SHOWCENTER,SHOWLEFT
+				 * ä¸»è¦æ˜¯è·ŸSHOWCENTERç›¸å¯¹æ¯”
 				 */
 				if (slidingMenu.getCurrentUIState() == SlidingState.SHOWRIGHT) {
 					slidingMenu.showViewState(SlidingState.SHOWCENTER);
@@ -75,8 +77,8 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-		
-		/* Í¬ÉÏ */
+
+		/* åŒä¸Š */
 		View ivLeft = centerView.findViewById(R.id.ivLeft);
 
 		ivLeft.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +92,7 @@ public class MainActivity extends Activity {
 				}
 			}
 		});
-		/* ÕâÀïÍ¬ÓÒImageView */
+		/* è¿™é‡ŒåŒå³ImageView */
 		View btnLeft = leftView.findViewById(R.id.btnLeft);
 		btnLeft.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -99,8 +101,8 @@ public class MainActivity extends Activity {
 
 			}
 		});
-		
-		/* ÉèÖÃ×ó±ßµÄlistview */
+
+		/* è®¾ç½®å·¦è¾¹çš„listview */
 		ListView lvLeft = (ListView) leftView.findViewById(R.id.lvLeft);
 		lvLeft.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				R.id.tv_item, lf_title));
@@ -110,11 +112,9 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-			
-
 			}
 		});
-		/* ÉèÖÃÓÒ±ßµÄlistview */
+		/* è®¾ç½®å³è¾¹çš„listview */
 		ListView lvRight = (ListView) rightView.findViewById(R.id.lvRight);
 		lvRight.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				R.id.tv_item, lr_title));
@@ -124,11 +124,9 @@ public class MainActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-			
-
 			}
 		});
-		/* ÉèÖÃÖĞ¼äµÄlistview */
+		/* è®¾ç½®ä¸­é—´çš„listview */
 		ListView lvcenter = (ListView) centerView.findViewById(R.id.lvCenter);
 		lvcenter.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				R.id.tv_item, lc_title));
@@ -136,13 +134,11 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {	
+					long arg3) {
 
 			}
 		});
-	
-        
-    }
 
+	}
 
 }

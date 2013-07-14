@@ -1,6 +1,7 @@
 package com.pushnews.app.slidingmenu;
 
-import com.example.slidingmenu.view.FixListViewLinearLayout.OnScrollListener;
+import com.pushnews.app.slidingmenu.FixListViewLinearLayout.OnScrollListener;
+
 import android.view.View.OnTouchListener;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -14,9 +15,10 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 
 /**
- * Õâ¸öÊÇÕûÌå½çÃæ£¬°üº¬×óÓÒÁ½¸öMenu;»¹ÓĞÒ»¸öÖĞ¼äµÄ
+ * è¿™ä¸ªæ˜¯æ•´ä½“ç•Œé¢ï¼ŒåŒ…å«å·¦å³ä¸¤ä¸ªMenu;è¿˜æœ‰ä¸€ä¸ªä¸­é—´çš„
  * 
  * @author LZB
  * 
@@ -25,33 +27,33 @@ import android.widget.RelativeLayout;
 public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		OnTouchListener {
 
-	/** ¿Õ°×½çÃæ */
+	/** ç©ºç™½ç•Œé¢ */
 	private SlidingView slidingView;
-	/** ×ó½çÃæ */
+	/** å·¦ç•Œé¢ */
 	private ViewGroup leftView;
-	/** ÓÒ½çÃæ */
+	/** å³ç•Œé¢ */
 	private ViewGroup rightView;
-	/** ÖĞ¼ä½çÃæ */
+	/** ä¸­é—´ç•Œé¢ */
 	private ViewGroup centerView;
-	/** ×ó±ß²Ëµ¥µÄ¿í¶È */
+	/** å·¦è¾¹èœå•çš„å®½åº¦ */
 	private int leftViewWidth;
-	/** ÓÒ±ß²Ëµ¥µÄ¿í¶È */
+	/** å³è¾¹èœå•çš„å®½åº¦ */
 	private int rightViewWidth;
-	/** ÆÁÄ»µÄ¿í¶È */
+	/** å±å¹•çš„å®½åº¦ */
 	private int screenWidth;
-	/** ÆÁÄ»µÄÒÆ¶¯ËÙÂÊ */
+	/** å±å¹•çš„ç§»åŠ¨é€Ÿç‡ */
 	private final static int SPEED = 30;
-	/** ÆÁÄ»µ±Ç°µÄËÙÂÊ */
+	/** å±å¹•å½“å‰çš„é€Ÿç‡ */
 	private int currentSpeed;
-	/** ÊÖÊÆ */
+	/** æ‰‹åŠ¿ */
 	private GestureDetector mGestureDetector;
-	/** µ±Ç°´¥ÃşµÄview */
+	/** å½“å‰è§¦æ‘¸çš„view */
 	private View currentOnTouchView;
-	/** ÅĞ¶ÏÊÇ·ñÕıÔÚ¹ö¶¯ */
+	/** åˆ¤æ–­æ˜¯å¦æ­£åœ¨æ»šåŠ¨ */
 	private boolean isScrolling;
-	/** ºáÏò¹ö¶¯µÄX */
+	/** æ¨ªå‘æ»šåŠ¨çš„X */
 	private int mScrollX;
-	/** ÏÂ´ÎµÄ½çÃæ×´Ì¬ */
+	/** ä¸‹æ¬¡çš„ç•Œé¢çŠ¶æ€ */
 	private SlidingState currentUIState;
 	private boolean hasMeasured;
 
@@ -60,7 +62,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 
 		slidingView = new SlidingView(context, attrs);
 		addView(slidingView);
-		/* ÕâÀïÊÇ»ñµÃÒ»¸öÍ¼²ã£¬È»ºóÔÚÕâÍ¼²ãÖĞ½øĞĞ»æ»­×Ô¼ºµÄ½çÃæ,¾ÍÊÇËµÔÚÎÒÔ­À´ÉèÖÃµÄÄÇ¸ö¿Õ°×½çÃæ¿ªÊ¼¹¹Ôì×Ô¼ºµÄ½çÃæÁË */
+		/* è¿™é‡Œæ˜¯è·å¾—ä¸€ä¸ªå›¾å±‚ï¼Œç„¶ååœ¨è¿™å›¾å±‚ä¸­è¿›è¡Œç»˜ç”»è‡ªå·±çš„ç•Œé¢,å°±æ˜¯è¯´åœ¨æˆ‘åŸæ¥è®¾ç½®çš„é‚£ä¸ªç©ºç™½ç•Œé¢å¼€å§‹æ„é€ è‡ªå·±çš„ç•Œé¢äº† */
 		ViewTreeObserver viewTreeObserver = slidingView.getViewTreeObserver();
 		viewTreeObserver.addOnPreDrawListener(new OnPreDrawListener() {
 
@@ -77,7 +79,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 					setMenusLatyouParamsWithCenterLayoutParam(centerLayoutParams);
 					hasMeasured = true;
 					currentUIState = SlidingState.SHOWCENTER;
-					
+
 					initView();
 				}
 				return true;
@@ -87,7 +89,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 
 	// =================================================================================================
 	/**
-	 * ³õÊ¼»¯
+	 * åˆå§‹åŒ–
 	 * 
 	 * @author LZB
 	 * 
@@ -97,7 +99,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		leftView.setOnTouchListener(this);
 		rightView.setOnTouchListener(this);
 		centerView.setOnTouchListener(this);
-		// Ìí¼Ó¼àÌıÊÂ¼şÍ¨¹ı»ñÈ¡×ÓViewµÄ¸öÊı¶ÔÃ¿¸ö×ÓView½øĞĞ³õÊ¼»¯
+		// æ·»åŠ ç›‘å¬äº‹ä»¶é€šè¿‡è·å–å­Viewçš„ä¸ªæ•°å¯¹æ¯ä¸ªå­Viewè¿›è¡Œåˆå§‹åŒ–
 		int leftViewCount = leftView.getChildCount();
 		for (int i = 0; i < leftViewCount; i++) {
 			View eachChildView = leftView.getChildAt(i);
@@ -125,7 +127,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	}
 
 	/**
-	 * ÊµÏÖOnScrollListener½Ó¿Ú
+	 * å®ç°OnScrollListeneræ¥å£
 	 * */
 	private OnScrollListener onScrollListener = new OnScrollListener() {
 
@@ -143,12 +145,15 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	// =====================================================================================================
 	@Override
 	public boolean onDown(MotionEvent e) {
-		if (null != currentOnTouchView && (currentOnTouchView instanceof ListView)) {
+		if (null != currentOnTouchView
+				&& (currentOnTouchView instanceof ListView)) {
 			ListView listView = (ListView) currentOnTouchView;
 
-			int position = listView.pointToPosition((int) e.getX(), (int) e.getY());
+			int position = listView.pointToPosition((int) e.getX(),
+					(int) e.getY());
 			if (position != ListView.INVALID_POSITION) {
-				View child = listView.getChildAt(position - listView.getFirstVisiblePosition());
+				View child = listView.getChildAt(position
+						- listView.getFirstVisiblePosition());
 				if (child != null)
 					child.setPressed(true);
 
@@ -156,7 +161,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		}
 		mScrollX = 0;
 		isScrolling = false;
-		// ½«Ö®¸ÄÎªtrue£¬²Å»á´«µİ¸øonSingleTapUp,²»È»ÊÂ¼ş²»»áÏòÏÂ´«µİ.
+		// å°†ä¹‹æ”¹ä¸ºtrueï¼Œæ‰ä¼šä¼ é€’ç»™onSingleTapUp,ä¸ç„¶äº‹ä»¶ä¸ä¼šå‘ä¸‹ä¼ é€’.
 		return true;
 	}
 
@@ -176,7 +181,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	@Override
 	public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
 			float distanceY) {
-		// Ö´ĞĞ»¬¶¯.
+		// æ‰§è¡Œæ»‘åŠ¨.
 		doScrolling(distanceX);
 		return false;
 	}
@@ -189,7 +194,7 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 
 	@Override
 	public boolean onSingleTapUp(MotionEvent e) {
-		// ÔÚÕâÀï×öÆ½Ê±¿Ø¼şµÄ°´¼üÊÂ¼ş
+		// åœ¨è¿™é‡Œåšå¹³æ—¶æ§ä»¶çš„æŒ‰é”®äº‹ä»¶
 		if (currentOnTouchView.isClickable()) {
 			currentOnTouchView.performClick();
 		}
@@ -200,20 +205,20 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	// =================================================================================================
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		currentOnTouchView = v;// ¼ÇÂ¼µã»÷µÄ¿Ø¼ş
+		currentOnTouchView = v;// è®°å½•ç‚¹å‡»çš„æ§ä»¶
 
-		// ËÉ¿ªµÄÊ±ºòÒªÅĞ¶Ï£¬Èç¹û²»µ½°ëÆÁÄ»Î»×ÓÔòËõ»ØÈ¥£¬
+		// æ¾å¼€çš„æ—¶å€™è¦åˆ¤æ–­ï¼Œå¦‚æœä¸åˆ°åŠå±å¹•ä½å­åˆ™ç¼©å›å»ï¼Œ
 		if (MotionEvent.ACTION_UP == event.getAction() && isScrolling == true) {
 			asynMove();
 			return false;
 		}
 		// Log.d(TAG, "onTouch view=" + v.getClass().getSimpleName());
 		return mGestureDetector.onTouchEvent(event);
-		
+
 	}
-	
+
 	/**
-	 * ÉèÖÃ×ó±ßµÄview
+	 * è®¾ç½®å·¦è¾¹çš„view
 	 * 
 	 * @author LZB
 	 * @param view
@@ -221,18 +226,17 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	 */
 	public void setLeftView(ViewGroup view, int leftWidth) {
 		leftView = view;
-		/**public LayoutParams(int w, int h) {
-            super(w, h);
-        }
-		 * ÉèÖÃ½çÃæµÄ¿í¶ÈºÍ¸ß¶È
-		 * ¿í¶È£ºleftWidth¡£¸ß¶È£ºFILL_PARENT£»
+		/**
+		 * public LayoutParams(int w, int h) { super(w, h); } è®¾ç½®ç•Œé¢çš„å®½åº¦å’Œé«˜åº¦
+		 * å®½åº¦ï¼šleftWidthã€‚é«˜åº¦ï¼šFILL_PARENTï¼›
 		 * */
-		RelativeLayout.LayoutParams lp = new LayoutParams(leftWidth, LayoutParams.FILL_PARENT);
+		RelativeLayout.LayoutParams lp = new LayoutParams(leftWidth,
+				LayoutParams.FILL_PARENT);
 		addView(view, lp);
 	}
-	
+
 	/**
-	 * ÉèÖÃÓÒ±ßµÄview
+	 * è®¾ç½®å³è¾¹çš„view
 	 * 
 	 * @author LZB
 	 * @param view
@@ -240,24 +244,26 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	 */
 	public void setRightView(ViewGroup view, int rightWidth) {
 		rightView = view;
-		RelativeLayout.LayoutParams lp = new LayoutParams(rightWidth, LayoutParams.FILL_PARENT);
+		RelativeLayout.LayoutParams lp = new LayoutParams(rightWidth,
+				LayoutParams.FILL_PARENT);
 		addView(view, lp);
 	}
-	
+
 	/**
-	 * ÉèÖÃÖĞ¼äµÄview
+	 * è®¾ç½®ä¸­é—´çš„view
 	 * 
 	 * @author LZB
 	 * @param view
 	 */
 	public void setCenterView(ViewGroup view) {
 		centerView = view;
-		RelativeLayout.LayoutParams lp = new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+		RelativeLayout.LayoutParams lp = new LayoutParams(
+				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		addView(view, lp);
 	}
-	
+
 	/**
-	 * »ñÈ¡µ±Ç°½çÃæµÄ×´Ì¬
+	 * è·å–å½“å‰ç•Œé¢çš„çŠ¶æ€
 	 * 
 	 * @author LZB
 	 * @return
@@ -265,27 +271,28 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 	public SlidingState getCurrentUIState() {
 		return currentUIState;
 	}
-	
+
 	/**
-	 * ¸ù¾İ½çÃæ×´Ì¬ÏÔÊ¾½çÃæ
+	 * æ ¹æ®ç•Œé¢çŠ¶æ€æ˜¾ç¤ºç•Œé¢
 	 * 
 	 * @author carlos carlosk@163.com
-	 * @version ´´½¨Ê±¼ä£º2013-4-16 ÉÏÎç11:12:33
+	 * @version åˆ›å»ºæ—¶é—´ï¼š2013-4-16 ä¸Šåˆ11:12:33
 	 * @param nextState
 	 */
 	public void showViewState(SlidingState nextState) {
 		if (currentUIState == nextState) {
 			return;
 		}
-		RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
+		RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView
+				.getLayoutParams();
 		int centerMargin = centerLayoutParams.leftMargin;
 		switch (nextState) {
 		case SHOWLEFT:
-			// ´óÓÚÓÒ±ß²Ëµ¥µÄÒ»°ëÔòÊÇ3£¬ÆäËûÊÇ2
+			// å¤§äºå³è¾¹èœå•çš„ä¸€åŠåˆ™æ˜¯3ï¼Œå…¶ä»–æ˜¯2
 			currentSpeed = SPEED;
 			break;
 		case SHOWCENTER:
-			// Èç¹ûµ±Ç°µÄ×´Ì¬ÊÇ×ó±ß»òÓÒ±ßµÄ²Ëµ¥ÏÔÊ¾µÄ»°£¬ÔòÏÔÊ¾ÎªÊ×Ò³
+			// å¦‚æœå½“å‰çš„çŠ¶æ€æ˜¯å·¦è¾¹æˆ–å³è¾¹çš„èœå•æ˜¾ç¤ºçš„è¯ï¼Œåˆ™æ˜¾ç¤ºä¸ºé¦–é¡µ
 			if (centerMargin == -rightViewWidth) {
 				currentSpeed = SPEED;
 			} else if (centerMargin == leftViewWidth) {
@@ -303,49 +310,57 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		currentUIState = nextState;
 		new AsynMove().execute();
 	}
-	
+
 	/**
-	 * ¸ù¾İÊ×Ò³µÄleftMarginµ÷Õû×óÓÒ²Ëµ¥µÄmargin
-	 * ÔÚµ÷ÕûÁËmarginºó¶Ô½çÃæÖØĞÂ¹¹Ôì
+	 * æ ¹æ®é¦–é¡µçš„leftMarginè°ƒæ•´å·¦å³èœå•çš„margin åœ¨è°ƒæ•´äº†marginåå¯¹ç•Œé¢é‡æ–°æ„é€ 
+	 * 
 	 * @author LZB
 	 * 
 	 * @param centerLayoutParams
 	 */
-	private void setMenusLatyouParamsWithCenterLayoutParam(LayoutParams centerLayoutParams) {
-		
-		RelativeLayout.LayoutParams rightLayoutParams = (RelativeLayout.LayoutParams) rightView.getLayoutParams();
-		RelativeLayout.LayoutParams leftLayoutParams = (RelativeLayout.LayoutParams) leftView.getLayoutParams();
-		// ÖØĞÂÉèÖÃ×ó±ß²Ëµ¥µÄrightMargin£¬²»È»»á±äĞÎ
-		rightLayoutParams.leftMargin = screenWidth + centerLayoutParams.leftMargin;
+	private void setMenusLatyouParamsWithCenterLayoutParam(
+			LayoutParams centerLayoutParams) {
+
+		RelativeLayout.LayoutParams rightLayoutParams = (RelativeLayout.LayoutParams) rightView
+				.getLayoutParams();
+		RelativeLayout.LayoutParams leftLayoutParams = (RelativeLayout.LayoutParams) leftView
+				.getLayoutParams();
+		// é‡æ–°è®¾ç½®å·¦è¾¹èœå•çš„rightMarginï¼Œä¸ç„¶ä¼šå˜å½¢
+		rightLayoutParams.leftMargin = screenWidth
+				+ centerLayoutParams.leftMargin;
 		rightLayoutParams.rightMargin = -rightLayoutParams.leftMargin;
 
-		// ²»¼ÓÕâ¸ö£¬ÍùÓÒÀ­µÄÊ±ºòÊ×Ò³»á±äĞÎ
+		// ä¸åŠ è¿™ä¸ªï¼Œå¾€å³æ‹‰çš„æ—¶å€™é¦–é¡µä¼šå˜å½¢
 		centerLayoutParams.rightMargin = -centerLayoutParams.leftMargin;
-		
-		leftLayoutParams.leftMargin = -leftViewWidth + centerLayoutParams.leftMargin;
-		leftLayoutParams.rightMargin = -rightViewWidth - leftLayoutParams.leftMargin;
+
+		leftLayoutParams.leftMargin = -leftViewWidth
+				+ centerLayoutParams.leftMargin;
+		leftLayoutParams.rightMargin = -rightViewWidth
+				- leftLayoutParams.leftMargin;
 
 		centerView.setLayoutParams(centerLayoutParams);
 		rightView.setLayoutParams(rightLayoutParams);
 		leftView.setLayoutParams(leftLayoutParams);
 
 	}
-	
+
 	/**
-	 * Òì²½ÒÆ¶¯
+	 * å¼‚æ­¥ç§»åŠ¨
 	 * 
 	 * @author LZB
 	 */
 	protected void asynMove() {
-		RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
-		// Ëõ»ØÈ¥
+		RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) centerView
+				.getLayoutParams();
+		// ç¼©å›å»
 		int centerMargin = layoutParams.leftMargin;
-		// Èç¹ûÄ¿Ç°ÊÇ×ó±ß³öÏÖ»òÓÒ±ß³öÏÖ£¬»òÖ»ÊÇ Ê×Ò³³öÏÖ£¬Ôò²»¼ÌĞøÖ´ĞĞ
-		if (centerMargin == -rightViewWidth || centerMargin == 0 || centerMargin == leftViewWidth) {
+		// å¦‚æœç›®å‰æ˜¯å·¦è¾¹å‡ºç°æˆ–å³è¾¹å‡ºç°ï¼Œæˆ–åªæ˜¯ é¦–é¡µå‡ºç°ï¼Œåˆ™ä¸ç»§ç»­æ‰§è¡Œ
+		if (centerMargin == -rightViewWidth || centerMargin == 0
+				|| centerMargin == leftViewWidth) {
 			return;
 		}
-		// ´óÓÚ ×ó±ß²Ëµ¥µÄÒ»°ëÔòÊÇ1£¬
-		// ´óÓÚÓÒ±ß²Ëµ¥µÄÒ»°ëÔòÊÇ3£¬ÆäËûÊÇ2
+		// å¤§äº å·¦è¾¹èœå•çš„ä¸€åŠåˆ™æ˜¯1ï¼Œ
+		// å¤§äºå³è¾¹èœå•çš„ä¸€åŠåˆ™æ˜¯3ï¼Œå…¶ä»–æ˜¯2
 		int seed = 0;
 		if (centerMargin < -rightViewWidth / 2) {
 			currentUIState = SlidingState.SHOWRIGHT;
@@ -360,38 +375,39 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		currentSpeed = seed;
 		new AsynMove().execute();
 	}
-	
+
 	/***
-	 * listview ÕıÔÚ»¬¶¯Ê±Ö´ĞĞ.
+	 * listview æ­£åœ¨æ»‘åŠ¨æ—¶æ‰§è¡Œ.
 	 */
 	void doScrolling(float distanceX) {
 		if (!isScrolling) {
 			isScrolling = true;
 		}
-		mScrollX += distanceX;// distanceX:Ïò×óÎªÕı£¬ÓÒÎª¸º
+		mScrollX += distanceX;// distanceX:å‘å·¦ä¸ºæ­£ï¼Œå³ä¸ºè´Ÿ
 
-		RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
+		RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView
+				.getLayoutParams();
 		centerLayoutParams.leftMargin -= mScrollX;
-		
+
 		if (centerLayoutParams.leftMargin >= leftViewWidth) {
-			isScrolling = false;// ÍÏ¹ıÍ·ÁË²»ĞèÒªÔÙÖ´ĞĞAsynMoveÁË
-			// ×ó±ßÍÏµ½Í·ÁË
+			isScrolling = false;// æ‹–è¿‡å¤´äº†ä¸éœ€è¦å†æ‰§è¡ŒAsynMoveäº†
+			// å·¦è¾¹æ‹–åˆ°å¤´äº†
 			currentUIState = SlidingState.SHOWLEFT;
 			centerLayoutParams.leftMargin = leftViewWidth;
 
 		} else if (centerLayoutParams.leftMargin <= -rightViewWidth) {
-			// ÍÏ¹ıÍ·ÁË²»ĞèÒªÔÙÖ´ĞĞAsynMoveÁË
+			// æ‹–è¿‡å¤´äº†ä¸éœ€è¦å†æ‰§è¡ŒAsynMoveäº†
 			currentUIState = SlidingState.SHOWRIGHT;
 			isScrolling = false;
-			
+
 			centerLayoutParams.leftMargin = -leftViewWidth;
 		}
 
 		setMenusLatyouParamsWithCenterLayoutParam(centerLayoutParams);
 	}
-	
+
 	/**
-	 * »ù±¾µÄµã»÷ÊÂ¼ş·ÅÔÚÕâÀï
+	 * åŸºæœ¬çš„ç‚¹å‡»äº‹ä»¶æ”¾åœ¨è¿™é‡Œ
 	 * 
 	 * @author LZB
 	 * @param id
@@ -401,11 +417,12 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 
 		if (centerView.getId() == id) {
 			showViewState(SlidingState.SHOWCENTER);
-		} 
+		}
 	}
-	
+
 	/**
-	 * ÕâÀïÊÇÒì²½ÒÆ¶¯½¨Á¢Ò»¸ö¶àÈÎÎñ
+	 * è¿™é‡Œæ˜¯å¼‚æ­¥ç§»åŠ¨å»ºç«‹ä¸€ä¸ªå¤šä»»åŠ¡
+	 * 
 	 * @author LZB
 	 * 
 	 * */
@@ -413,21 +430,22 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 
 		@Override
 		protected Void doInBackground(Void... params) {
-			//  ¼ÆËãtime
+			// è®¡ç®—time
 			int moveX = 0;
-			RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
+			RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView
+					.getLayoutParams();
 
 			int currentCenterMarginLeft = centerLayoutParams.leftMargin;
 			switch (currentUIState) {
-			// Èç¹ûÊÇÍù×ó
+			// å¦‚æœæ˜¯å¾€å·¦
 			case SHOWLEFT:
-				moveX = leftViewWidth - currentCenterMarginLeft ;
+				moveX = leftViewWidth - currentCenterMarginLeft;
 				break;
 			case SHOWCENTER:
 				moveX = Math.abs(currentCenterMarginLeft);
 				break;
 			case SHOWRIGHT:
-				moveX = currentCenterMarginLeft +rightViewWidth;
+				moveX = currentCenterMarginLeft + rightViewWidth;
 			default:
 				break;
 			}
@@ -453,26 +471,33 @@ public class SlidingMenu extends RelativeLayout implements OnGestureListener,
 		 */
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
+			RelativeLayout.LayoutParams centerLayoutParams = (RelativeLayout.LayoutParams) centerView
+					.getLayoutParams();
 
-			// ÓÒÒÆ¶¯
-			// ÕâÀïÖ»ÊÇÉèÖÃcenterµÄleftMargin£¬ÆäËûµÄ¸ù¾İ¸ÃÖµµ÷Õû
+			// å³ç§»åŠ¨
+			// è¿™é‡Œåªæ˜¯è®¾ç½®centerçš„leftMarginï¼Œå…¶ä»–çš„æ ¹æ®è¯¥å€¼è°ƒæ•´
 			switch (currentUIState) {
 			case SHOWLEFT:
-				// Íù×ó±ßÒÆ
-				centerLayoutParams.leftMargin = Math.min(centerLayoutParams.leftMargin + currentSpeed, leftViewWidth);
+				// å¾€å·¦è¾¹ç§»
+				centerLayoutParams.leftMargin = Math.min(
+						centerLayoutParams.leftMargin + currentSpeed,
+						leftViewWidth);
 
 				break;
 			case SHOWCENTER:
 				if (currentSpeed > 0) {
-					centerLayoutParams.leftMargin = Math.min(centerLayoutParams.leftMargin + currentSpeed, 0);
+					centerLayoutParams.leftMargin = Math.min(
+							centerLayoutParams.leftMargin + currentSpeed, 0);
 				} else {
-					centerLayoutParams.leftMargin = Math.max(centerLayoutParams.leftMargin + currentSpeed, 0);
+					centerLayoutParams.leftMargin = Math.max(
+							centerLayoutParams.leftMargin + currentSpeed, 0);
 				}
 
 				break;
 			case SHOWRIGHT:
-				centerLayoutParams.leftMargin = Math.max(centerLayoutParams.leftMargin + currentSpeed, -rightViewWidth);
+				centerLayoutParams.leftMargin = Math.max(
+						centerLayoutParams.leftMargin + currentSpeed,
+						-rightViewWidth);
 
 				break;
 

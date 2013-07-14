@@ -1,13 +1,13 @@
 package com.pushnews.app.slidingmenu;
 
 /**
- * µ±Ç°½çÃæ×´Ì¬
+ * å½“å‰ç•Œé¢çŠ¶æ€
  * @author LZB
  * */
 public enum SlidingState {
-	SHOWLEFT("ÏÔÊ¾×ó±ß"),
-	SHOWCENTER("ÏÔÊ¾ÖĞ¼ä"),
-	SHOWRIGHT("ÏÔÊ¾ÓÒ±ß");
+	SHOWLEFT("æ˜¾ç¤ºå·¦è¾¹"),
+	SHOWCENTER("æ˜¾ç¤ºä¸­é—´"),
+	SHOWRIGHT("æ˜¾ç¤ºå³è¾¹");
 	
 	private final String desc;
 	private  SlidingState(String desc) {
@@ -19,3 +19,4 @@ public enum SlidingState {
 	
 
 }
+
