@@ -17,7 +17,7 @@
                 android:text="设置右边"         
                 android:textSize="20sp" />
         </LinearLayout>
-      <com.example.slidingmenu.view.FixListViewLinearLayout
+      <com.pushnews.app.slidingmenu.FixListViewLinearLayout
         android:id="@+id/mylaout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -28,6 +28,6 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent" >
         </ListView>
-    </com.example.slidingmenu.view.FixListViewLinearLayout>
+    </com.pushnews.app.slidingmenu.FixListViewLinearLayout>
 
 </LinearLayout>

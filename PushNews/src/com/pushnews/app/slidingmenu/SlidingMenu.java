@@ -1,7 +1,6 @@
 package com.pushnews.app.slidingmenu;
 
 import com.pushnews.app.slidingmenu.FixListViewLinearLayout.OnScrollListener;
-
 import android.view.View.OnTouchListener;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -15,7 +14,6 @@ import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.RelativeLayout.LayoutParams;
 
 /**
  * 这个是整体界面，包含左右两个Menu;还有一个中间的

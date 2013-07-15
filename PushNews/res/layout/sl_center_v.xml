@@ -34,7 +34,7 @@
             android:clickable="true" />
     </RelativeLayout>
 
-    <com.example.slidingmenu.view.FixListViewLinearLayout
+    <com.pushnews.app.slidingmenu.FixListViewLinearLayout
         android:id="@+id/mylaout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -45,6 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
         </ListView>
-    </com.example.slidingmenu.view.FixListViewLinearLayout>
+    </com.pushnews.app.slidingmenu.FixListViewLinearLayout>
 
 </LinearLayout>
