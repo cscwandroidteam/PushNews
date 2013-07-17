@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?> 
+ <!-- 有边距的圆角矩形 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+android:shape="rectangle"> 
+<solid android:color="@color/pink" /> 
+<stroke android:width="0.5dp" android:color="@color/black" />  线条边框颜色 
+<corners android:topLeftRadius="8dp" android:topRightRadius="8dp" 
+    android:bottomRightRadius="8dp" android:bottomLeftRadius="8dp" />  各个边角的弯曲弧度 
+</shape>

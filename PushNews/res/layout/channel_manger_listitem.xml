@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/cmlt_Rlayout"
+        android:layout_width="fill_parent"
+        android:layout_height="65dp"
+        android:background="@drawable/preference_single_item"
+        android:layout_marginTop="3.5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        >
+
+        <ImageView
+            android:id="@+id/cmlt_iv_declare"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentLeft="true"
+             android:layout_centerInParent="true"
+            android:background="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/cmlt_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_toRightOf="@id/cmlt_iv_declare"
+            android:text="紧急新闻"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/cmlt_iv_bt"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@drawable/mm_submenu_normal" />
+    </RelativeLayout>
+
+</LinearLayout>

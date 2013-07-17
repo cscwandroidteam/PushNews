@@ -12,13 +12,21 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.pushnews.app.ui.MainActivity"
+            android:name=".ui.NewsMainActivity"
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.ChannelMangerActivity" >
+        </activity>
+        <activity android:name=".ui.SuggestionFeedbackActivity" >
+        </activity>
+        <activity android:name=".ui.SystemSetActivity" >
+        </activity>
+        <activity android:name=".ui.UsingHelpActivity" >
         </activity>
     </application>
 
