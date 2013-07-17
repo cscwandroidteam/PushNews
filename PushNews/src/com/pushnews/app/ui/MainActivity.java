@@ -5,11 +5,15 @@ import com.pushnews.app.slidingmenu.SlidingMenu;
 import com.pushnews.app.slidingmenu.SlidingState;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -20,10 +24,9 @@ public class MainActivity extends Activity {
 			"财经", "趣图", "国内", "国际", "常见问题", "退出当前帐号" };
 	private String lr_title[] = { "设置", "消息推送", "我的收藏", "改变字体大小", "改变亮度",
 			"常见问题", "退出当前帐号" };
-	private String lc_title[] = { "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻" };
+	private String lc_title[] = { "广东工业大学重大新闻", "广东工业大学重大新闻1", "广东工业大学重大新闻2",
+			"广东工业大学重大新闻3", "广东工业大学重大新闻4", "广东工业大学重大新闻5", "广东工业大学重大新闻6",
+			"广东工业大学重大新闻7", "广东工业大学重大新闻8", "广东工业大学重大新闻9" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,7 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.sliding_menu);
 		slidingMenu = (SlidingMenu) findViewById(R.id.slidingMenu);
+
 		/**
 		 * getLayoutInflater().inflate(int resource, ViewGroup root);
 		 * 这个是对自定义的xml布局文件进行解释，然后获取后android能够对其变为一个layout;
@@ -56,7 +60,7 @@ public class MainActivity extends Activity {
 		slidingMenu.setLeftView(leftView, leftWidth);
 		slidingMenu.setRightView(rightView, rightWidth);
 		/* 设置右边ImageView的响应事件 */
-		View ivRight = centerView.findViewById(R.id.ivRight);
+		View ivRight = centerView.findViewById(R.id.news_list_menu_right);
 		ivRight.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -74,7 +78,7 @@ public class MainActivity extends Activity {
 		});
 
 		/* 同上 */
-		View ivLeft = centerView.findViewById(R.id.ivLeft);
+		View ivLeft = centerView.findViewById(R.id.news_list_menu_left);
 
 		ivLeft.setOnClickListener(new View.OnClickListener() {
 
@@ -118,22 +122,69 @@ public class MainActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-
+				if (arg2 == 2) {
+					Intent intent = new Intent(MainActivity.this,
+							MycollectActivity.class);
+					startActivity(intent);
+				}
 			}
 		});
 		/* 设置中间的listview */
-		ListView lvcenter = (ListView) centerView.findViewById(R.id.lvCenter);
+		ListView lvcenter = (ListView) centerView
+				.findViewById(R.id.news_list_ListView);
 		lvcenter.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				R.id.tv_item, lc_title));
+		setListViewHeight(lvcenter);
 		lvcenter.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-					long arg3) {
-
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(MainActivity.this,
+						NewsDetailsActivity.class);
+				startActivity(intent);
 			}
 		});
 
+		// 登陆账号
+		Button loginbutton = (Button) findViewById(R.id.layout_right_login);
+		loginbutton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent(MainActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+			}
+		});
+	}
+
+	/**
+	 * 重新计算ListView的高度，解决ScrollView和ListView两个View都有滚动的效果，在嵌套使用时起冲突的问题
+	 * 
+	 * @author linyongan
+	 */
+	public void setListViewHeight(ListView listView) {
+
+		// 获取ListView对应的Adapter
+
+		ListAdapter listAdapter = listView.getAdapter();
+
+		if (listAdapter == null) {
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0); // 计算子项View 的宽高
+			totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
 	}
 
 }
