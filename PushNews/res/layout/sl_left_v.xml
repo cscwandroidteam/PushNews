@@ -24,16 +24,22 @@
             android:layout_marginLeft="20dp"
             android:text="中间" />
     </LinearLayout>
+
     <com.pushnews.app.slidingmenu.FixListViewLinearLayout
         android:id="@+id/mylaout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible"
-        android:layout_weight="1" >
+        android:layout_weight="1"
+        android:visibility="visible" >
+
         <ListView
             android:id="@+id/lvLeft"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:listSelector="#00000000"
+            android:background="@color/white"
+            >
         </ListView>
     </com.pushnews.app.slidingmenu.FixListViewLinearLayout>
+
 </LinearLayout>

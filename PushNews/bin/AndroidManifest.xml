@@ -28,6 +28,12 @@
         </activity>
         <activity android:name=".ui.UsingHelpActivity" >
         </activity>
+        <activity android:name="com.pushnews.app.ui.NewsDetailsActivity" />
+        <activity android:name="com.pushnews.app.ui.MycollectActivity" />
+        <activity android:name="com.pushnews.app.ui.LoginActivity" />
+         <activity android:name="com.pushnews.app.ui.NewsDetailsActivity"/>
+        <activity android:name="com.pushnews.app.ui.MycollectActivity"/>
+        <activity android:name="com.pushnews.app.ui.LoginActivity"/>
     </application>
 
 </manifest>

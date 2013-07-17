@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -27,14 +29,14 @@ public class NewsMainActivity extends Activity {
 
 	private SlidingMenu slidingMenu;
 	private Button slLeftCmlsBtn;
+	private Button loginbutton;
 	private String lf_title[] = { "广州", "娱乐", "体育", "汽车", "科技", "头条", "紧急新闻",
 			"财经", "趣图", "国内", "国际", "常见问题", "退出当前帐号" };
 	private String lr_title[] = { "设置", "消息推送", "我的收藏", "改变字体大小", "改变亮度",
 			"常见问题", "退出当前帐号" };
-	private String lc_title[] = { "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻",
-			"广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻", "广东工业大学重大新闻" };
+	private String lc_title[] = { "广东工业大学重大新闻", "广东工业大学重大新闻1", "广东工业大学重大新闻2",
+			"广东工业大学重大新闻3", "广东工业大学重大新闻4", "广东工业大学重大新闻5", "广东工业大学重大新闻6",
+			"广东工业大学重大新闻7", "广东工业大学重大新闻8", "广东工业大学重大新闻9" };
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +49,14 @@ public class NewsMainActivity extends Activity {
 		setCenter();
 		setLeft();
 		setRight();
-
+		// 登陆账号
+		 loginbutton = (Button) findViewById(R.id.layout_right_login);
+		 //频道管理
+		slLeftCmlsBtn = (Button)findViewById(R.id.sl_left_cmls_btn);
+		loginbutton.setOnClickListener(new ButtonOnClickListener());
+		slLeftCmlsBtn.setOnClickListener(new ButtonOnClickListener());
 	}
+
 	
 	/**设置左边界面*/
 	private void setLeft(){
@@ -79,10 +87,7 @@ public class NewsMainActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 
-				Intent intent = new Intent(NewsMainActivity.this,
-						ChannelMangerActivity.class);
-				startActivity(intent);
-				finish();
+			
 			}
 		});
 	}
@@ -93,7 +98,7 @@ public class NewsMainActivity extends Activity {
 		/* 对这个自定义的SlidingMenu添加中间画面的组件 */
 		slidingMenu.setCenterView(centerView);
 		
-		View ivRight = centerView.findViewById(R.id.ivRight);
+		View ivRight = centerView.findViewById(R.id.news_list_menu_right);
 		/* 设置右边ImageView的响应事件 */
 		ivRight.setOnClickListener(new View.OnClickListener() {
 
@@ -112,7 +117,7 @@ public class NewsMainActivity extends Activity {
 		});
 		
 		/* 同上 */
-		View ivLeft = centerView.findViewById(R.id.ivLeft);
+		View ivLeft = centerView.findViewById(R.id.news_list_menu_left);
 
 		ivLeft.setOnClickListener(new View.OnClickListener() {
 
@@ -127,17 +132,23 @@ public class NewsMainActivity extends Activity {
 		});
 		
 		/* 设置中间的listview */
-		ListView lvcenter = (ListView) centerView.findViewById(R.id.lvCenter);
+		ListView lvcenter = (ListView) centerView
+				.findViewById(R.id.news_list_ListView);
 		lvcenter.setAdapter(new ArrayAdapter<String>(this, R.layout.list_item,
 				R.id.tv_item, lc_title));
+		setListViewHeight(lvcenter);
 		lvcenter.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-
+				Intent intent = new Intent(NewsMainActivity.this,
+						NewsDetailsActivity.class);
+				startActivity(intent);
 			}
 		});
+		
+	
 	}
 	/**设置右边界面*/
 	private void setRight(){
@@ -166,4 +177,55 @@ public class NewsMainActivity extends Activity {
 			}
 		});		
 	}
+	/**
+	 * 重新计算ListView的高度，解决ScrollView和ListView两个View都有滚动的效果，在嵌套使用时起冲突的问题
+	 * 
+	 * @author linyongan
+	 */
+	public void setListViewHeight(ListView listView) {
+
+		// 获取ListView对应的Adapter
+
+		ListAdapter listAdapter = listView.getAdapter();
+
+		if (listAdapter == null) {
+			return;
+		}
+		int totalHeight = 0;
+		for (int i = 0, len = listAdapter.getCount(); i < len; i++) { // listAdapter.getCount()返回数据项的数目
+			View listItem = listAdapter.getView(i, null, listView);
+			listItem.measure(0, 0); // 计算子项View 的宽高
+			totalHeight += listItem.getMeasuredHeight(); // 统计所有子项的总高度
+		}
+
+		ViewGroup.LayoutParams params = listView.getLayoutParams();
+		params.height = totalHeight
+				+ (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+		listView.setLayoutParams(params);
+	}
+	private class ButtonOnClickListener implements OnClickListener {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.layout_right_login:
+				Intent intent = new Intent(NewsMainActivity.this,
+						LoginActivity.class);
+				startActivity(intent);
+				finish();
+				break;
+			case R.id.sl_left_cmls_btn:
+				Intent intent1 = new Intent(NewsMainActivity.this,
+						ChannelMangerActivity.class);
+				startActivity(intent1);
+				finish();
+				break;
+			default:
+				break;
+			}
+
+		}
+
+	}
+
 }

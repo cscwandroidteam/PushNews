@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newsdetails_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 标题 ，后期RelativeLayout加背景，他的高度暂时设为60，返回按钮对应的背景及事件 ,有警告的地方要修改 -->
+
+    <RelativeLayout
+        android:id="@+id/newsdetails_titlebar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip" >
+
+        <Button
+            android:id="@+id/newsdetails_back_bn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/newsdetails_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="焦点"
+            android:textSize="20sp" />
+    </RelativeLayout>
+    <!-- 标新闻详细内容 -->
+
+    <RelativeLayout
+        android:id="@+id/newsdetails_news_body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/newsdetails_titlebar_layout"
+        android:layout_marginBottom="50.0dip" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="新闻内容" />
+    </RelativeLayout>
+    <!-- 底部按钮 ,后期给3个按钮添加背景，删除有警告的text，这里我添加了一张图片是3个按钮间的分割线 -->
+
+    <LinearLayout
+        android:id="@+id/newsdetails_bottom_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <Button
+            android:id="@+id/newsdetails_last_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上一条" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:src="@drawable/newsdetails_bottom_layout_divider" />
+
+        <Button
+            android:id="@+id/newsdetails_collect_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="收藏" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2.0dip"
+            android:layout_marginRight="2.0dip"
+            android:src="@drawable/newsdetails_bottom_layout_divider" />
+
+        <Button
+            android:id="@+id/newsdetails_next_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一条" />
+    </LinearLayout>
+
+</RelativeLayout>

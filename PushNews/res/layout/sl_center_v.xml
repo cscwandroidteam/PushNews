@@ -5,46 +5,74 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/center_Rl"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+    <!-- 标题，后期RelativeLayout加背景，它的高度暂时设为60，左右菜单按钮对应的背景及事件 ,删除有警告的text -->
 
-        <ImageView
-            android:id="@+id/ivLeft"
+    <RelativeLayout
+        android:id="@+id/news_list_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/news_list_menu_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:clickable="true" />
+            android:layout_centerVertical="true"
+            android:text="左菜单" />
 
         <TextView
+            android:id="@+id/news_list_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="标题"
+            android:text="新闻"
             android:textSize="20sp" />
 
-        <ImageView
-            android:id="@+id/ivRight"
+        <Button
+            android:id="@+id/news_list_menu_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:clickable="true" />
+            android:layout_centerVertical="true"
+            android:text="右菜单" />
     </RelativeLayout>
 
     <com.pushnews.app.slidingmenu.FixListViewLinearLayout
         android:id="@+id/mylaout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:visibility="visible"
-        android:layout_weight="1" >
-        <ListView
-            android:id="@+id/lvCenter"
+        android:layout_weight="1"
+        android:visibility="visible" >
+
+        <!-- 图片新闻,ImageView最后一个属性，不加会有警告，原因未知 -->
+
+        <ScrollView
+            android:id="@+id/news_list_scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-        </ListView>
+            android:layout_height="match_parent"
+            android:fillViewport="true" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="vertical" >
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="100dip"
+                    android:background="@drawable/picture_news"
+                    android:contentDescription="@string/app_name" />
+                <!-- 新闻列表 -->
+
+                <ListView
+                    android:id="@+id/news_list_ListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:cacheColorHint="#00000000" />
+            </LinearLayout>
+        </ScrollView>
     </com.pushnews.app.slidingmenu.FixListViewLinearLayout>
 
 </LinearLayout>
