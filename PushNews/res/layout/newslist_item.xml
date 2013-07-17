@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 1.android:descendantFocusability：ViewGroup阻止其子View接收焦点 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/newslist_item_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants" >
+<!-- 新闻列表的item，图片要设置高度宽度，具体样式问题可以继续美化 -->
+    <ImageView
+        android:id="@+id/newslist_item_news_picture"
+        android:layout_width="65.0dip"
+        android:layout_height="65.0dip"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/ic_launcher" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:layout_toRightOf="@+id/newslist_item_news_picture" >
+
+        <!-- 最后一个属性是设为粗体, android:marqueeRepeatLimit="marquee_forever"是设置文字循环滚动 -->
+
+        <TextView
+            android:id="@+id/newslist_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:marqueeRepeatLimit="marquee_forever"
+            android:text="我是标题"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <!-- 最后一个属性是内容过长变成省略号 -->
+
+        <TextView
+            android:id="@+id/newslist_item_digest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newslist_item_title"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="2dip"
+            android:ellipsize="end"
+            android:lines="1"
+            android:text="我是摘要"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/newslist_item_from"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newslist_item_digest"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="2dip"
+            android:text="来自"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/newslist_item_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/newslist_item_digest"
+            android:layout_marginRight="5dip"
+            android:text="时间"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</RelativeLayout>

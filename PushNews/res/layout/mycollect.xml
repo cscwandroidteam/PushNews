@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mycollect_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 标题 ，后期RelativeLayout加背景，他的高度暂时设为60，返回按钮对应的背景及事件 ,有警告的地方要修改 -->
+
+    <RelativeLayout
+        android:id="@+id/mycollect_titlebar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip" >
+
+        <Button
+            android:id="@+id/mycollect_back_bn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/mycollect_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的收藏"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/mycollect_ListView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:cacheColorHint="#00000000" />
+
+</LinearLayout>

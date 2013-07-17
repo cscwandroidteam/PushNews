@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 标题 ，后期RelativeLayout加背景，他的高度暂时设为60，返回按钮对应的背景及事件 ,有警告的地方要修改 -->
+
+    <RelativeLayout
+        android:id="@+id/login_titlebar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="60.0dip" >
+
+        <Button
+            android:id="@+id/login_back_bn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="返回" />
+
+        <TextView
+            android:id="@+id/login_titlebar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="我的账号"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="30dp"
+            android:stretchColumns="1" >
+
+            <!-- 这两个edittext必须有background那个属性，否则在安卓4.0以上的模拟器上无法显示方框，我用的背景是安卓2.3的 -->
+
+            <TableRow>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:padding="10dp"
+                    android:text="账号:"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/login_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="5dip"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:inputType="text" />
+            </TableRow>
+
+            <TableRow android:layout_marginTop="10dip" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dip"
+                    android:padding="10dp"
+                    android:text="密码:"
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/login_userpasssword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginRight="5dip"
+                    android:background="@android:drawable/editbox_background_normal"
+                    android:inputType="text"
+                    android:singleLine="true" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_weight="3"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/login_CheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dip"
+                android:checked="true"
+                android:text="记住密码"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="40dip"
+                android:padding="15dp"
+                android:text="登陆"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="22dp"
+                android:layout_toLeftOf="@+id/loginButton"
+                android:padding="15dp"
+                android:text="注册"
+                android:textSize="15sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>
