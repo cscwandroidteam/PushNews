@@ -40,8 +40,8 @@ public class Constants {
 	public static class NewsListTable {
 		/**新闻类表的表名*/
 		public static final String TABLE_NAME = "newsList";
-		/**新闻的ID*/
-		public static final String ID = "news_id";
+		/**数据库列表的ID*/
+		public static final String ID = "_id";
 		/**新闻的类型*/
 		public static final String NEWS_TYPE = "newsType";
 		/**新闻的标题*/
@@ -52,6 +52,10 @@ public class Constants {
 		public static final String NEWS_FROM = "newsFrom";
 		/**新闻时间*/
 		public static final String NEWS_TIME = "newsTime";
+		/***/
+		public static final String NEWS_IMAGE_URL = "imageUrl";
+		/**新闻的ID*/
+		public static final String NEWS_ID = "newsId";
 
 	}
 }

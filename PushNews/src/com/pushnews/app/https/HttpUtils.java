@@ -30,10 +30,6 @@ public class HttpUtils {
 		return CustomHttpClient.getFromWebByHttpClient(context,strUrl, nameValuePairs);
 	}
 	
-	public static Bitmap AsyncLoadPic(String imageUrl, ImageCallBack callback){
-		return AsyncImageLoader.loadBitmap(imageUrl, callback);
-		
-	}
 
 	// ------------------------------------------------------------------------------------------
 	// 网络连接判断

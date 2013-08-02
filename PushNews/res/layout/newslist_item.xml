@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:descendantFocusability="blocksDescendants" >
-<!-- 新闻列表的item，图片要设置高度宽度，具体样式问题可以继续美化 -->
+
+    <!-- 新闻列表的item，图片要设置高度宽度，具体样式问题可以继续美化 -->
+
     <ImageView
         android:id="@+id/newslist_item_news_picture"
         android:layout_width="65.0dip"
@@ -47,13 +49,24 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/newslist_item_from_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/newslist_item_digest"
+            android:layout_marginLeft="10dip"
+            android:layout_marginTop="2dip"
+            android:text="来自:"
+            android:textSize="12sp" />
+
+        <TextView
             android:id="@+id/newslist_item_from"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/newslist_item_digest"
             android:layout_marginLeft="10dip"
             android:layout_marginTop="2dip"
-            android:text="来自"
+            android:layout_toRightOf="@id/newslist_item_from_text"
+            android:text="广州"
             android:textSize="12sp" />
 
         <TextView
@@ -63,7 +76,16 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/newslist_item_digest"
             android:layout_marginRight="5dip"
-            android:text="时间"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/newslist_item_time_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/newslist_item_digest"
+            android:layout_marginRight="5dip"
+            android:layout_toLeftOf="@id/newslist_item_time"
+            android:text="时间："
             android:textSize="12sp" />
     </RelativeLayout>
 
