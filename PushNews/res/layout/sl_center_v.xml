@@ -46,33 +46,13 @@
 
         <!-- 图片新闻,ImageView最后一个属性，不加会有警告，原因未知 -->
 
-        <ScrollView
-            android:id="@+id/news_list_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:orientation="vertical" >
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="100dip"
-                    android:background="@drawable/picture_news"
-                    android:contentDescription="@string/app_name" />
-                <!-- 新闻列表 -->
-
-                <ListView
-                    android:id="@+id/news_list_ListView"
+            <com.pushnews.app.view.NewsListView 
+                        android:id="@+id/news_list_ListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:cacheColorHint="#00000000" />
-            </LinearLayout>
-        </ScrollView>
+                    android:cacheColorHint="#00000000"
+                    
+                    ></com.pushnews.app.view.NewsListView>
     </com.pushnews.app.slidingmenu.FixListViewLinearLayout>
 
 </LinearLayout>
