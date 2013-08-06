@@ -7,8 +7,12 @@ import java.util.Map;
 
 import com.pushnews.app.R;
 import com.pushnews.app.adapter.holder.ChannelMangerHolder;
+import com.pushnews.app.cofig.Constants;
+import com.pushnews.app.db.ChannelDbManger;
+import com.pushnews.app.model.Channel;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +27,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
  * @see 下面将对上述代码，做详细的解释，listView在开始绘制的时候，系统首先调用getCount（）函数，根据他的返回值得到listView的长度
  *      （这也是为什么在开始的第一张图特别的标出列表长度），然后根据这个长度，调用getView（）逐一绘制每一行。如果你的getCount（）
  *      返回值是0的话，列表将不显示同样return 1，就只显示一行。
- * 
  *      系统显示列表时，首先实例化一个适配器（这里将实例化自定义的适配器）。当手动完成适配时，必须手动映射数据，这需要重写getView（）
  *      方法。系统在绘制列表的每一行的时候将调用此方法。getView()有三个参数，position表示将显示的是第几行，
  *      covertView是从布局文件中inflate来的布局
@@ -41,25 +44,27 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class ChannelMangerListAdapter extends BaseAdapter {
 	private LayoutInflater mInflater;
-	private String test[] = { "广州", "娱乐", "体育", "汽车", "科技", "头条", "紧急新闻", "财经",
-			"趣图", "国内", "国际", "常见问题", "退出当前帐号" };
-	private List<Map<String, Object>> channelList = new ArrayList<Map<String, Object>>();
-	private Map<String, Object> channelMap = new HashMap<String, Object>();
+	private List<Channel> channelList = new ArrayList<Channel>();
+	private ChannelDbManger channelDbManger;
+	private Channel channel;
+	private String newsType;
 
-	public ChannelMangerListAdapter(Context context) {
+	public ChannelMangerListAdapter(Context context, List<Channel> list) {
 		this.mInflater = LayoutInflater.from(context);
+		channelDbManger = new ChannelDbManger(context);		
+		this.channelList = list;
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return test.length;
+		return channelList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return test[position];
+		return channelList.get(position);
 	}
 
 	@Override
@@ -81,13 +86,9 @@ public class ChannelMangerListAdapter extends BaseAdapter {
 	 * @return convertView
 	 * */
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		ChannelMangerHolder holder = null;
-		channelMap.put("position", test[position]);
-		channelList.add(channelMap);
-		final int test = position;
+	public View getView(final int position, View convertView, ViewGroup parent) {
+		ChannelMangerHolder holder = null;		
 		if (convertView == null) {
-
 			holder = new ChannelMangerHolder();
 			convertView = mInflater.inflate(
 					R.layout.channel_manger_listelector_item, null);
@@ -101,19 +102,41 @@ public class ChannelMangerListAdapter extends BaseAdapter {
 			holder = (ChannelMangerHolder) convertView.getTag();
 
 		}
-		holder.channelListTv.setText((String) channelList.get(position).get(
-				"position"));
+		newsType = channelList.get(position).getnewsType();
+		holder.channelListTv.setText(newsType);
+		if (channelList.get(position).getMark()==1) {
+			holder.channelListCb.setChecked(true);
+			System.out.println(position+"======1{}");
+		}else{
+			holder.channelListCb.setChecked(false);
+			System.out.println(position+"======0{}");
+		}		
 		holder.channelListCb
 				.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView,
 							boolean isChecked) {
-						if (isChecked == false) {
-							System.out.println("position" + test);
+						channelDbManger.open();
+						String newstyle = channelList.get(position).getnewsType();
+						if (isChecked != false) {
+							channel = new Channel(newstyle, 1);
+						int i =	channelDbManger.updateChannel(channel,
+									Constants.ChannelTable.MARK + "=?" + " and "
+											+ Constants.ChannelTable.NEWS_TYPE
+											+ "=?", new String[] {"0",newstyle});
+							System.out.println("1======="+position+"======"+i);
+						} else {
+							channel = new Channel(newstyle, 0);
+							int i =	channelDbManger.updateChannel(channel,
+									Constants.ChannelTable.MARK + "=?" + " and "
+											+ Constants.ChannelTable.NEWS_TYPE
+											+ "=?", new String[] {"1",newstyle});
+							System.out.println("0======="+position+"======"+i);
 						}
+						channelDbManger.open();						
 					}
 				});
 		return convertView;
 	}
-
+	
 }

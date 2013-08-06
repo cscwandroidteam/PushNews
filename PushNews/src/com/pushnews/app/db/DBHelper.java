@@ -18,7 +18,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ Constants.ChannelTable.TABLE_NAME + " ("
 			+ Constants.ChannelTable.ID + " integer primary key, "
 			+ Constants.ChannelTable.NEWS_TYPE + " text, "
-			+ Constants.ChannelTable.MARK + " integer)";
+			+ Constants.ChannelTable.MARK + " boolen)";
 	/** 用户表 */
 	private final String USER_TABLE = "create table "
 			+ Constants.UserTable.TABLE_NAME + " (" + Constants.UserTable.ID
@@ -35,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ Constants.NewsListTable.NEWS_FROM + " text, "
 			+ Constants.NewsListTable.NEWS_ID + " intger, "
 			+ Constants.NewsListTable.NEWS_IMAGE_URL + " text, "
+			+ Constants.NewsListTable.NEWS_DETAIL_URL + " text, "
 			+ Constants.NewsListTable.NEWS_TIME + " text)";
 
 	public DBHelper(Context context, String name, CursorFactory factory,

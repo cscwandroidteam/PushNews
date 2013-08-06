@@ -20,7 +20,6 @@ public class Constants {
 		public static final String NEWS_TYPE = "newsType";
 		/**新闻配置标签*/
 		public static final String MARK = "mark";
-
 	}
 	/**用户表*/
 	public static class UserTable {
@@ -52,10 +51,12 @@ public class Constants {
 		public static final String NEWS_FROM = "newsFrom";
 		/**新闻时间*/
 		public static final String NEWS_TIME = "newsTime";
-		/***/
+		/**新闻图片地址*/
 		public static final String NEWS_IMAGE_URL = "imageUrl";
 		/**新闻的ID*/
 		public static final String NEWS_ID = "newsId";
+		/**新闻的详细内容地址*/
+		public static final String NEWS_DETAIL_URL = "newsDetailUrl";
 
 	}
 }

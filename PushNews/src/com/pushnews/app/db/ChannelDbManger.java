@@ -63,7 +63,6 @@ public class ChannelDbManger {
 			contentValues.put(Constants.ChannelTable.NEWS_TYPE,
 					channel.getnewsType());
 			contentValues.put(Constants.ChannelTable.MARK, channel.getMark());
-
 			return db.insert(Constants.ChannelTable.TABLE_NAME, null,
 					contentValues);
 		} catch (Exception e) {
@@ -140,7 +139,6 @@ public class ChannelDbManger {
 			contentValues.put(Constants.ChannelTable.NEWS_TYPE,
 					channel.getnewsType());
 			contentValues.put(Constants.ChannelTable.MARK, channel.getMark());
-
 			return db.update(Constants.ChannelTable.TABLE_NAME, contentValues,
 					whereClause, whereArgs);
 		} catch (Exception e) {

@@ -73,7 +73,8 @@ public class NewsItemDbManger {
 					newsItem.getNews_id());
 			contentValues.put(Constants.NewsListTable.NEWS_IMAGE_URL,
 					newsItem.getImageUrl());
-
+			contentValues.put(Constants.NewsListTable.NEWS_DETAIL_URL,
+					newsItem.getDetialUrl());
 			return db.insert(Constants.NewsListTable.TABLE_NAME, null,
 					contentValues);
 
@@ -129,6 +130,27 @@ public class NewsItemDbManger {
 				null, null, null, null);
 		return c;
 	}
+	
+	public Cursor getData(String newsType,String newTime,String limit){
+		String[] selectionArgs = {newsType,newTime};
+		Cursor c = db.query(true, Constants.NewsListTable.TABLE_NAME,
+				new String[] {Constants.NewsListTable.ID,
+				Constants.NewsListTable.NEWS_DETAIL_URL,
+				Constants.NewsListTable.NEWS_FROM,
+				Constants.NewsListTable.NEWS_ID,
+				Constants.NewsListTable.NEWS_IMAGE_URL,
+				Constants.NewsListTable.NEWS_SUMMRY,
+				Constants.NewsListTable.NEWS_TIME,
+				Constants.NewsListTable.NEWS_TITLE,
+				}, 
+				Constants.NewsListTable.NEWS_TYPE+"=?"+" and "+
+						Constants.NewsListTable.NEWS_TIME+"<?", selectionArgs, 
+				Constants.NewsListTable.NEWS_ID, 
+				null,
+				Constants.NewsListTable.NEWS_TIME+" desc", limit);		
+		return c;
+		
+	}
 
 	/**
 	 * 更改表中的记录
@@ -144,20 +166,26 @@ public class NewsItemDbManger {
 	 * 
 	 * @return 返回修改的条数 也可以作为判断值，如果是正数则表示更改成功，反之不成功
 	 */
-	public int updateNewsList(NewsItem newsList, String whereClause,
+	public int updateNewsList(NewsItem newsItem, String whereClause,
 			String[] whereArgs) {
 		try {
 			ContentValues contentValues = new ContentValues();
 			contentValues.put(Constants.NewsListTable.NEWS_TYPE,
-					newsList.getNewsType());
+					newsItem.getNewsType());
 			contentValues.put(Constants.NewsListTable.NEWS_TITLE,
-					newsList.getNewsTitle());
+					newsItem.getNewsTitle());
 			contentValues.put(Constants.NewsListTable.NEWS_SUMMRY,
-					newsList.getNewsSummary());
+					newsItem.getNewsSummary());
 			contentValues.put(Constants.NewsListTable.NEWS_FROM,
-					newsList.getNewsFrom());
+					newsItem.getNewsFrom());
 			contentValues.put(Constants.NewsListTable.NEWS_TIME,
-					newsList.getNewsTime());
+					newsItem.getNewsTime());
+			contentValues.put(Constants.NewsListTable.NEWS_ID,
+					newsItem.getNews_id());
+			contentValues.put(Constants.NewsListTable.NEWS_IMAGE_URL,
+					newsItem.getImageUrl());
+			contentValues.put(Constants.NewsListTable.NEWS_DETAIL_URL,
+					newsItem.getDetialUrl());
 			return db.update(Constants.NewsListTable.TABLE_NAME, contentValues,
 					whereClause, whereArgs);
 		} catch (Exception e) {

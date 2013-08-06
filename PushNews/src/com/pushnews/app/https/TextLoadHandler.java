@@ -75,9 +75,10 @@ public class TextLoadHandler extends Thread {
 					System.out.println(newsTime);
 					String newsSummary = newsItems.getString("short_content");
 					System.out.println(newsSummary);
+					String detailUrl = newsItems.getString("detail_url");
 					String newsFrom = "广州";
 					NewsItem item = new NewsItem(newsId, newsType, newsTitle,
-							newsSummary, newsFrom, newsTime, imageUrl);
+							newsSummary, newsFrom, newsTime, imageUrl,detailUrl);
 					newsItemDbManger.open();
 					/** 将解析的json数据加入数据库 */
 					newsItemDbManger.addNews(item);

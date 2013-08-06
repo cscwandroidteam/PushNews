@@ -16,10 +16,12 @@ public class NewsItem {
 	private  String newsTime;
 	/**新闻图片地址*/
 	private  String imageUrl;
+	/**新闻详细内容地址*/
+	private String detialUrl;
 	
 	
 	public NewsItem(int news_id,String newsType, String newsTitle, String newsSummary,
-			String newsFrom, String newsTime,String imageUrl) {
+			String newsFrom, String newsTime,String imageUrl,String detailUrl) {
 		super();		
 		this.newsType = newsType;
 		this.newsTitle = newsTitle;
@@ -28,6 +30,7 @@ public class NewsItem {
 		this.newsTime = newsTime;
 		this.imageUrl = imageUrl;
 		this.news_id = news_id;
+		this.detialUrl = detailUrl;
 	}
 
 	public String toStirng() {
@@ -90,6 +93,14 @@ public class NewsItem {
 
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
+	}
+
+	public String getDetialUrl() {
+		return detialUrl;
+	}
+
+	public void setDetialUrl(String detialUrl) {
+		this.detialUrl = detialUrl;
 	}
 
 	
