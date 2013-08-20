@@ -73,8 +73,6 @@ public class NewsItemDbManger {
 					newsItem.getNews_id());
 			contentValues.put(Constants.NewsListTable.NEWS_IMAGE_URL,
 					newsItem.getImageUrl());
-			contentValues.put(Constants.NewsListTable.NEWS_DETAIL_URL,
-					newsItem.getDetialUrl());
 			return db.insert(Constants.NewsListTable.TABLE_NAME, null,
 					contentValues);
 
@@ -135,7 +133,7 @@ public class NewsItemDbManger {
 		String[] selectionArgs = {newsType,newTime};
 		Cursor c = db.query(true, Constants.NewsListTable.TABLE_NAME,
 				new String[] {Constants.NewsListTable.ID,
-				Constants.NewsListTable.NEWS_DETAIL_URL,
+				Constants.NewsListTable.TOP_LINE,
 				Constants.NewsListTable.NEWS_FROM,
 				Constants.NewsListTable.NEWS_ID,
 				Constants.NewsListTable.NEWS_IMAGE_URL,
@@ -145,7 +143,7 @@ public class NewsItemDbManger {
 				}, 
 				Constants.NewsListTable.NEWS_TYPE+"=?"+" and "+
 						Constants.NewsListTable.NEWS_TIME+"<?", selectionArgs, 
-				Constants.NewsListTable.NEWS_ID, 
+				Constants.NewsListTable.NEWS_TIME, 
 				null,
 				Constants.NewsListTable.NEWS_TIME+" desc", limit);		
 		return c;
@@ -184,8 +182,6 @@ public class NewsItemDbManger {
 					newsItem.getNews_id());
 			contentValues.put(Constants.NewsListTable.NEWS_IMAGE_URL,
 					newsItem.getImageUrl());
-			contentValues.put(Constants.NewsListTable.NEWS_DETAIL_URL,
-					newsItem.getDetialUrl());
 			return db.update(Constants.NewsListTable.TABLE_NAME, contentValues,
 					whereClause, whereArgs);
 		} catch (Exception e) {

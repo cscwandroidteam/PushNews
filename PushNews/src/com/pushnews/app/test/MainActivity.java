@@ -29,7 +29,7 @@ import android.database.Cursor;
 
 public class MainActivity extends Activity {
 
-	private String url = Urls.TOP_NEWS_URL;
+	private String url = Urls.NewsDetailUrl;
 	private List<HashMap<String, Object>> newlist = new ArrayList<HashMap<String, Object>>();
 	private ListView newList;
 	private Handler uiHandler;

@@ -124,7 +124,7 @@ public class AsyncImageLoader {
 		/** 下载的图片 */
 		Bitmap bitmap;
 		/** 新闻ID */
-		int newsId;
+		String newsId;
 		/** 回调接口 */
 		Callback callback;
 	}
@@ -153,7 +153,7 @@ public class AsyncImageLoader {
 	 *            新闻ID
 	 * @return
 	 */
-	public Bitmap imageLoad(String path, int newsId, Callback callback) {
+	public Bitmap imageLoad(String path, String newsId, Callback callback) {
 		Bitmap bitmap = null;
 		// 如果内存缓存中存在该路径，则从内存中直接获取该图片
 		if (mHashMap_caches.containsKey(path)) {

@@ -71,8 +71,8 @@ public class CustomHttpURLConnection {
 			// 设定请求的方法为"POST"，默认是GET 
 			conn.setRequestMethod("POST");
 			//设置超时
-			conn.setConnectTimeout(3000);
-			conn.setReadTimeout(4000);
+			conn.setConnectTimeout(30000);
+			conn.setReadTimeout(120000);
 			// Post 请求不能使用缓存 
 			conn.setUseCaches(false);
 			conn.setInstanceFollowRedirects(true);

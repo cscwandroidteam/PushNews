@@ -1,6 +1,8 @@
 package com.pushnews.app.adapter;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -37,7 +39,7 @@ public class NewListAdapter extends BaseAdapter implements Filterable {
 	private List<? extends Map<String, ?>> mData;
 	
 	/**新闻的ID*/
-	private int news_id;
+	private String news_id;
 	/**异步加载类*/
 	private AsyncImageLoader imageLoader;
 
@@ -157,7 +159,7 @@ public class NewListAdapter extends BaseAdapter implements Filterable {
 		final int[] to = mTo;
 		final int count = to.length;
 		final Object data2 = dataSet.get(from[0]);
-		this.news_id = (Integer) data2;
+		this.news_id = (String) data2;
 
 		for (int i = 0; i < count; i++) {
 			final View v = view.findViewById(to[i]);
@@ -176,10 +178,7 @@ public class NewListAdapter extends BaseAdapter implements Filterable {
 						if (data instanceof Boolean) {
 							((Checkable) v).setChecked((Boolean) data);
 						} else if (v instanceof TextView) {
-							// Note: keep the instanceof TextView check at the
-							// bottom of these
-							// ifs since a lot of views are TextViews (e.g.
-							// CheckBoxes).
+									
 							setViewText((TextView) v, text);
 						} else {
 							throw new IllegalStateException(v.getClass()
@@ -189,11 +188,11 @@ public class NewListAdapter extends BaseAdapter implements Filterable {
 											: data.getClass()));
 						}
 					} else if (v instanceof TextView) {
-						// Note: keep the instanceof TextView check at the
-						// bottom of these
-						// ifs since a lot of views are TextViews (e.g.
-						// CheckBoxes).
-						setViewText((TextView) v, text);
+							if (data instanceof Long) {
+								setViewLong((TextView)v, (Long) data);
+							} else {							
+								setViewText((TextView) v, text);
+							}		
 					} else if (v instanceof ImageView) {
 						setViewImage((ImageView) v, text);
 					} else {
@@ -294,6 +293,13 @@ public class NewListAdapter extends BaseAdapter implements Filterable {
 	 */
 	public void setViewText(TextView v, String text) {
 		v.setText(text);
+	}
+	
+	public void setViewLong(TextView v, Long data) {
+		DateFormat dateFormat = DateFormat.getDateInstance();
+		String newsTime = dateFormat
+				.format(new Date(data).getTime());
+		v.setText(newsTime);
 	}
 
 	public Filter getFilter() {

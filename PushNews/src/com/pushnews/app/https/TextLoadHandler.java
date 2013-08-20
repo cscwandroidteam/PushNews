@@ -1,5 +1,8 @@
 package com.pushnews.app.https;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,6 +36,8 @@ public class TextLoadHandler extends Thread {
 	private NewsItemDbManger newsItemDbManger;
 	/** 来自网络端还未解析的json数据， */
 	private String jsonData;
+	
+	private List<NewsItem> newsList = new ArrayList<NewsItem>();
 
 	/** 进行与其他线程通信的构造函数 */
 	public TextLoadHandler(Context context, Handler handler, String url) {
@@ -55,39 +60,34 @@ public class TextLoadHandler extends Thread {
 	public void run() {
 		Looper.prepare();
 		try {
+			long newsTime = 0;
 			/** 获取网络端的数据并进行json解析 */
 			jsonData = HttpUtils.postByHttpURLConnection(baseUrl, null);
 			if (judgeNewsUpdate() == 1) {
-				JSONObject jsonObject = new JSONObject(jsonData);
-				JSONObject newsData = jsonObject.getJSONObject("response");
-				JSONArray newsList = newsData.getJSONArray("items");
-				for (int i = 0; i < newsList.length(); i++) {
-					JSONObject newsItems = (JSONObject) newsList.opt(i);
-					int newsId = (Integer) newsItems.getInt("id");
+				JSONArray newsListarray = new JSONArray(jsonData);
+				for (int i = 0; i < newsListarray.length(); i++) {
+					JSONObject newsItems = (JSONObject) newsListarray.opt(i);
+					String newsId = newsItems.getString("id");
 					System.out.println("" + newsId);
-					String imageUrl = newsItems.getString("thumbnail_url");
+					String imageUrl = "http://a1.eoe.cn/thumb/www/home/201307/28/f12b/51f4874532e03.jpg-108x72-5.jpg";
 					System.out.println(imageUrl);
-					String newsTitle = newsItems.getString("title");
+					String newsTitle = newsItems.getString("mainTitle");
 					System.out.println(newsTitle);
-					String newsType = newsData.getString("name");
-					System.out.println(newsType);
-					String newsTime = newsItems.getString("time");
-					System.out.println(newsTime);
-					String newsSummary = newsItems.getString("short_content");
-					System.out.println(newsSummary);
-					String detailUrl = newsItems.getString("detail_url");
+					String newsType = "国内";
+					newsTime = (Long) newsItems.get("releaseTime");
+					System.out.println(""+newsTime);
+					int topLine = (int) newsItems.getInt("topLine");
+					String newsSummary = "熊宇，eoe上海同城会现任负责人，eoeAndroid社区问答...";		
 					String newsFrom = "广州";
 					NewsItem item = new NewsItem(newsId, newsType, newsTitle,
-							newsSummary, newsFrom, newsTime, imageUrl,detailUrl);
-					newsItemDbManger.open();
-					/** 将解析的json数据加入数据库 */
-					newsItemDbManger.addNews(item);
-					newsItemDbManger.close();
+							newsSummary, newsFrom, newsTime, imageUrl,topLine);
+					newsList.add(item);
 				}
 			}
 			Message message = new Message();
 			/** 完成后发送消息 */
 			message.what = Messages.TASK_SUCCESSS;
+			message.obj = newsList;
 			uiHandler.sendMessage(message);
 			System.out.println("wanchen");
 

@@ -3,7 +3,7 @@ package com.pushnews.app.model;
 /** 新闻列表实体类 */
 public class NewsItem {
 	/** 新闻ID */
-	private  int news_id;
+	private  String news_id;
 	/** 新闻类型 */
 	private  String newsType;
 	/** 新闻标题 */
@@ -13,15 +13,14 @@ public class NewsItem {
 	/** 新闻来源 */
 	private  String newsFrom;
 	/** 新闻时间 */
-	private  String newsTime;
+	private  long newsTime;
 	/**新闻图片地址*/
 	private  String imageUrl;
-	/**新闻详细内容地址*/
-	private String detialUrl;
+	/** 0：表示不是头条，1：表示头条*/
+	private int topLine;
 	
-	
-	public NewsItem(int news_id,String newsType, String newsTitle, String newsSummary,
-			String newsFrom, String newsTime,String imageUrl,String detailUrl) {
+	public NewsItem(String news_id,String newsType, String newsTitle, String newsSummary,
+			String newsFrom, long newsTime,String imageUrl,int topLine) {
 		super();		
 		this.newsType = newsType;
 		this.newsTitle = newsTitle;
@@ -30,7 +29,11 @@ public class NewsItem {
 		this.newsTime = newsTime;
 		this.imageUrl = imageUrl;
 		this.news_id = news_id;
-		this.detialUrl = detailUrl;
+		this.topLine = topLine;
+	}
+	
+	public NewsItem(){
+		
 	}
 
 	public String toStirng() {
@@ -39,11 +42,11 @@ public class NewsItem {
 				+ ";newsTime =" + newsTime;
 	}
 
-	public int getNews_id() {
+	public String getNews_id() {
 		return news_id;
 	}
 
-	public void setNews_id(int news_id) {
+	public void setNews_id(String news_id) {
 		this.news_id = news_id;
 	}
 
@@ -79,11 +82,11 @@ public class NewsItem {
 		this.newsFrom = newsFrom;
 	}
 
-	public String getNewsTime() {
+	public long getNewsTime() {
 		return newsTime;
 	}
 
-	public void setNewsTime(String newsTime) {
+	public void setNewsTime(long newsTime) {
 		this.newsTime = newsTime;
 	}
 
@@ -95,13 +98,14 @@ public class NewsItem {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getDetialUrl() {
-		return detialUrl;
+	public int getTopLine() {
+		return topLine;
 	}
 
-	public void setDetialUrl(String detialUrl) {
-		this.detialUrl = detialUrl;
+	public void setTopLine(int topLine) {
+		this.topLine = topLine;
 	}
+
 
 	
 }

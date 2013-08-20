@@ -33,10 +33,10 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ Constants.NewsListTable.NEWS_TITLE + " text, "
 			+ Constants.NewsListTable.NEWS_SUMMRY + " text, "
 			+ Constants.NewsListTable.NEWS_FROM + " text, "
-			+ Constants.NewsListTable.NEWS_ID + " intger, "
+			+ Constants.NewsListTable.NEWS_ID + " text, "
 			+ Constants.NewsListTable.NEWS_IMAGE_URL + " text, "
-			+ Constants.NewsListTable.NEWS_DETAIL_URL + " text, "
-			+ Constants.NewsListTable.NEWS_TIME + " text)";
+			+ Constants.NewsListTable.TOP_LINE + " intger, "
+			+ Constants.NewsListTable.NEWS_TIME + " long)";
 
 	public DBHelper(Context context, String name, CursorFactory factory,
 			int version) {

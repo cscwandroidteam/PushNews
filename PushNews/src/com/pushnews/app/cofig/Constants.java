@@ -55,8 +55,8 @@ public class Constants {
 		public static final String NEWS_IMAGE_URL = "imageUrl";
 		/**新闻的ID*/
 		public static final String NEWS_ID = "newsId";
-		/**新闻的详细内容地址*/
-		public static final String NEWS_DETAIL_URL = "newsDetailUrl";
+		/**表示头条*/
+		public static final String TOP_LINE = "topLine";
 
 	}
 }
