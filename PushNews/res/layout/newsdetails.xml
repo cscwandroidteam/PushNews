@@ -10,7 +10,7 @@
     <RelativeLayout
         android:id="@+id/newsdetails_titlebar_layout"
         android:layout_width="match_parent"
-        android:layout_height="60.0dip" >
+        android:layout_height="50.0dip" >
 
         <Button
             android:id="@+id/newsdetails_back_bn"
@@ -24,24 +24,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="焦点"
             android:textSize="20sp" />
     </RelativeLayout>
     <!-- 标新闻详细内容 -->
 
-    <RelativeLayout
-        android:id="@+id/newsdetails_news_body"
+    <ViewFlipper
+        android:id="@+id/newsdetails_ViewFlipper"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/newsdetails_titlebar_layout"
-        android:layout_marginBottom="50.0dip" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="新闻内容" />
-    </RelativeLayout>
+        android:layout_below="@id/newsdetails_titlebar_layout"
+        android:layout_marginBottom="50dip" >
+    </ViewFlipper>
     <!-- 底部按钮 ,后期给3个按钮添加背景，删除有警告的text，这里我添加了一张图片是3个按钮间的分割线 -->
 
     <LinearLayout

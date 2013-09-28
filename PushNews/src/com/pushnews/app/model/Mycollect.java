@@ -1,7 +1,7 @@
 package com.pushnews.app.model;
 
-/** 新闻列表实体类 */
-public class NewsItem {
+/** 收藏列表实体类 */
+public class Mycollect {
 	/** 新闻ID */
 	private String news_id;
 	/** 新闻类型 */
@@ -16,10 +16,10 @@ public class NewsItem {
 	private long newsTime;
 	/** 新闻图片地址 */
 	private String imageUrl;
-	/** 0：表示不是头条，1：表示头条 */
+	/** 0：表示不是头条，1：表示头条*/
 	private int topLine;
 
-	public NewsItem(String news_id, String newsType, String newsTitle,
+	public Mycollect(String news_id, String newsType, String newsTitle,
 			String newsSummary, String newsFrom, long newsTime,
 			String imageUrl, int topLine) {
 		super();
@@ -32,9 +32,16 @@ public class NewsItem {
 		this.news_id = news_id;
 		this.topLine = topLine;
 	}
-
-	public NewsItem() {
-
+	
+	public Mycollect(String news_id, String newsTitle,
+			String newsSummary, long newsTime,
+			String imageUrl){
+		super();
+		this.newsTitle = newsTitle;
+		this.newsSummary = newsSummary;
+		this.newsTime = newsTime;
+		this.imageUrl = imageUrl;
+		this.news_id = news_id;
 	}
 
 	public String toStirng() {

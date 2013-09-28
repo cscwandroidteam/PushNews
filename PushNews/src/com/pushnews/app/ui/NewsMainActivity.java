@@ -53,10 +53,6 @@ public class NewsMainActivity extends Activity implements NewsListViewListener {
 			"财经", "趣图", "国内", "国际", "常见问题", "退出当前帐号" };
 	private String lr_title[] = { "设置", "消息推送", "我的收藏", "改变字体大小", "改变亮度",
 			"常见问题", "退出当前帐号" };
-	private String lc_title[] = { "广东工业大学重大新闻", "广东工业大学重大新闻1", "广东工业大学重大新闻2",
-			"广东工业大学重大新闻3", "广东工业大学重大新闻4", "广东工业大学重大新闻5", "广东工业大学重大新闻6",
-			"广东工业大学重大新闻7", "广东工业大学重大新闻8", "广东工业大学重大新闻9" };
-
 	/** 新闻显示列表 */
 	private NewsListView mListView;
 	/** 新闻列表适配器 */
@@ -75,7 +71,27 @@ public class NewsMainActivity extends Activity implements NewsListViewListener {
 	private String url = Urls.NewsListUrl;
 	/** 最后一条的新闻时间 */
 	private static long THELASTTIME = 0;
-
+	/** 新闻ID */
+	private String newsId;
+	/** 新闻类型 */
+	private String newsType;
+	/** 新闻标题 */
+	private String newsTitle;
+	/** 新闻概要 */
+	private String newsSummary;
+	/** 新闻来源 */
+	private String newsFrom;
+	/** 新闻时间 */
+	private long newsTime;
+	/** 新闻图片地址 */
+	private String imageUrl;
+	/** 新闻详细内容地址 */
+	private String detialUrl;
+	/** 0：表示不是头条，1：表示头条*/
+	private int topLine;
+	/** 记录从这个NewsMainActivity跳到详细新闻界面 */
+	private String comefrom = "NewsMainActivity";
+	private String detailBaseurl = Urls.NewsDetailUrl;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -192,12 +208,40 @@ public class NewsMainActivity extends Activity implements NewsListViewListener {
 	
 		mListView.setAdapter(mAdapter);
 		mListView.setNewsListViewListener(this);
-
+		mListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id1) {
+				// 从存储新闻信息的newlist中拿出当前被点击的那个item的所有新闻信息
+				// 在这里获取所有的信息主要是为了，当用户点击收藏时，可以把这些数据直接存储到收藏列表中
+				HashMap<String, Object> hashMap = newlist.get(position - 1);
+				newsId = hashMap.get("id").toString();
+				detialUrl = detailBaseurl + "?id=" + newsId;
+				newsTitle = hashMap.get("title").toString();
+				newsSummary = hashMap.get("short_content").toString();
+				newsTime = (Long) hashMap.get("time");
+				imageUrl = hashMap.get("imageUrl").toString();
+				Log.i(TAG, "主页面加载数据成功");
+				Intent intent = new Intent(NewsMainActivity.this,
+						NewsDetailsActivity.class);
+				// 将数据传到NewsDetailsActivity
+				intent.putExtra("detialUrl", detialUrl);
+				intent.putExtra("newsId", newsId);
+				intent.putExtra("newsTitle", newsTitle);
+				intent.putExtra("newsSummary", newsSummary);
+				intent.putExtra("newsTime", newsTime);
+				intent.putExtra("imageUrl", imageUrl);
+				// 下面这些数据是新闻的类型和一个用于记录从这个NewsMainActivity跳到详细新闻界面 的String
+				intent.putExtra("comefrom", comefrom);
+				startActivity(intent);
+				Log.i("输出", "OK");
+			}
+		});
+		
 	}
 
 	/** 初始化控件方法 */
 	private void initView() {
-		mListView = (NewsListView) findViewById(R.id.cmls_list_v);
 		// 新闻列表适配器
 		mAdapter = new NewListAdapter(this, newlist, R.layout.newslist_item,
 				new String[] { "id", "imageUrl", "title", "time",
@@ -450,7 +494,7 @@ public class NewsMainActivity extends Activity implements NewsListViewListener {
 					long arg3) {
 
 				Intent intent = new Intent(NewsMainActivity.this,
-						SystemSetActivity.class);
+						MycollectActivity.class);
 				startActivity(intent);
 				finish();
 			}

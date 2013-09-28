@@ -37,6 +37,19 @@ public class DBHelper extends SQLiteOpenHelper {
 			+ Constants.NewsListTable.NEWS_IMAGE_URL + " text, "
 			+ Constants.NewsListTable.TOP_LINE + " intger, "
 			+ Constants.NewsListTable.NEWS_TIME + " long)";
+	
+	/** 收藏列表的表 */
+	private final String COLLECT_TABLE = "create table "
+			+ Constants.MycollectTable.TABLE_NAME + " ("
+			+ Constants.MycollectTable.ID + " integer primary key, "
+			+ Constants.MycollectTable.NEWS_TYPE + " text, "
+			+ Constants.MycollectTable.NEWS_TITLE + " text, "
+			+ Constants.MycollectTable.NEWS_SUMMRY + " text, "
+			+ Constants.MycollectTable.NEWS_FROM + " text, "
+			+ Constants.MycollectTable.NEWS_ID + " text, "
+			+ Constants.MycollectTable.NEWS_IMAGE_URL + " text, "
+			+ Constants.MycollectTable.TOP_LINE + " intger, "
+			+ Constants.MycollectTable.NEWS_TIME + " long)";
 
 	public DBHelper(Context context, String name, CursorFactory factory,
 			int version) {
@@ -50,6 +63,7 @@ public class DBHelper extends SQLiteOpenHelper {
 			db.execSQL(CHANNL_TABLE);
 			db.execSQL(USER_TABLE);
 			db.execSQL(NEWSLIST_TABLE);
+			db.execSQL(COLLECT_TABLE);
 		} catch (Exception e) {
 			Log.e(TAG, e.getMessage());
 		}
@@ -64,6 +78,8 @@ public class DBHelper extends SQLiteOpenHelper {
 		db.execSQL("drop table if exists " + Constants.ChannelTable.TABLE_NAME);
 		db.execSQL("drop table if exists " + Constants.NewsListTable.TABLE_NAME);
 		db.execSQL("drop table if exists " + Constants.UserTable.TABLE_NAME);
+		db.execSQL("drop table if exists "
+				+ Constants.MycollectTable.TABLE_NAME);
 		onCreate(db);
 	}
 
